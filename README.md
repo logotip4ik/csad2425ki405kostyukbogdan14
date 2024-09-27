@@ -16,5 +16,5 @@ Create a rock, paper, scissors game.
 
 ### Technical details
 
-- Programming language: Go
+- Programming language: C++
 - Hardware: ESP32
