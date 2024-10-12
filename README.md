@@ -33,7 +33,8 @@ the project, upload the code and start monitoring serial port.
 
 Then, to actually try the communication:
 
-1. Connect to `ESP32` WiFi
+1. Connect to `ESP32` WiFi (password should be `12341234`. You can change both of WiFi name and
+   password in `src/main.cpp`)
 2. Open `http://192.168.1.1` in your browser
 3. Now, you are able to update the counter which stays in sync with server
 
@@ -45,3 +46,5 @@ returns html with new state, which client inserts into the page.
 ### Encountered issues
 
 1. You may need to install driver for ESP32 usb from [Silicon Labs](https://www.silabs.com/developers/usb-to-uart-bridge-vcp-drivers?tab=downloads)
+2. Web server was crashing itself when sending big payloads (like `htmx`). To fix this, i used
+   chunked response.
