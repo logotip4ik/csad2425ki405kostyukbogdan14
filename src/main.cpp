@@ -25,7 +25,7 @@ void sendNotFound(AsyncWebServerRequest *request) {
 }
 
 void sendHtmx(AsyncWebServerRequest *request) {
-  // htmx is a bit to large to send in one chunk, so we need to split it and send in chunks
+  // htmx is a bit too large to send in one chunk, so we need to split it and send in smaller chunks
   AsyncWebServerResponse* response = request->beginChunkedResponse("text/javascript", [](uint8_t* buffer, size_t maxLen, size_t index) {
     int toCopy = min(htmxSize - index, maxLen);
     if (toCopy == 0) {
