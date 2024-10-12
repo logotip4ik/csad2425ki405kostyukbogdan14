@@ -6,12 +6,12 @@
 
 #include "document.h"
 
-const char* ssid = "ESP32";
-const char* password = "12341234";
-
 typedef struct {
   int value;
 } State;
+
+const char* ssid = "ESP32";
+const char* password = "12341234";
 
 IPAddress local_ip(192,168,1,1);
 IPAddress gateway(192,168,1,1);
