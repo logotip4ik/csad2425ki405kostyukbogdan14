@@ -20,12 +20,24 @@ IPAddress subnet(255,255,255,0);
 AsyncWebServer server(80);
 State state = { .value = 0 };
 
-void notFound(AsyncWebServerRequest *request) {
-    request->send(404, "text/plain", "Not found");
+void sendNotFound(AsyncWebServerRequest *request) {
+  request->send(404, "text/plain", "Not found");
 }
 
 void sendHtmx(AsyncWebServerRequest *request) {
-    request->send(200, "text/javascript", htmx);
+  // htmx is a bit to large to send in one chunk, so we need to split it and send in chunks
+  AsyncWebServerResponse* response = request->beginChunkedResponse("text/javascript", [](uint8_t* buffer, size_t maxLen, size_t index) {
+    int toCopy = min(htmxSize - index, maxLen);
+    if (toCopy == 0) {
+      return 0;
+    }
+
+    memcpy(buffer, htmx + index, toCopy);
+
+    return toCopy;
+  });
+
+  request->send(response);
 }
 
 void setup() {
@@ -62,11 +74,11 @@ void setup() {
   });
 
   server.on("/htmx.js", HTTP_GET, sendHtmx);
-  server.onNotFound(notFound);
+  server.onNotFound(sendNotFound);
 
   server.begin();
 
-  Serial.println("Starting http server");
+  Serial.println("HTTP server started");
 }
 
 void loop() {
