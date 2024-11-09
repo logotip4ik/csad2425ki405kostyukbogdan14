@@ -21,6 +21,8 @@ Create a rock, paper, scissors game.
 
 ## Task 2
 
+### Get Up and Running
+
 To upload code into the board:
 
 1. Install [PlatformIO](https://platformio.org/)
@@ -48,3 +50,17 @@ returns html with new state, which client inserts into the page.
 1. You may need to install driver for ESP32 usb from [Silicon Labs](https://www.silabs.com/developers/usb-to-uart-bridge-vcp-drivers?tab=downloads)
 2. Web server was crashing itself when sending big payloads (like `htmx`). To fix this, i used
    chunked response.
+
+## Task 3
+
+To setup view [Task 2 Get Up and Running](#get-up-and-running)
+
+### Details
+
+Now it's working game. We provide 3 game modes for the user:
+
+1. Human vs. Human
+2. Human vs. AI
+3. AI vs. AI
+
+Everything is managed by the server. HTML is used only to display options and results.
