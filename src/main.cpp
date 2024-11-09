@@ -1,20 +1,11 @@
 #include <Arduino.h>
 
 #include <WiFi.h>
-#include <ESPAsyncWebServer.h>
+#include "ESPAsyncWebServer.h"
 #include <htmx.h>
 
 #include "hunks.h"
-
-enum Result {Tie, P1, P2};
-enum Mode {Idle, Zero, One, Two};
-enum Move {None, Rock, Paper, Scissors};
-
-typedef struct {
-  Mode mode;
-  Move player1Move;
-  Move player2Move;
-} State;
+#include "game.h"
 
 const char* ssid = "ESP32";
 const char* password = "12341234";
@@ -28,39 +19,6 @@ State state;
 
 void sendHunk(AsyncWebServerRequest *request, String *hunk) {
   request->send(200, "text/html", hunk->begin());
-}
-
-char rockMove[] = "Rock";
-char paperMove[] = "Paper";
-char scissorsMove[] = "Scissors";
-char* getMoveString(Move move) {
-  if (move == Rock) return rockMove;
-  if (move == Paper) return paperMove;
-  if (move == Scissors) return scissorsMove;
-  return rockMove;
-}
-
-Move makeAIMove(State* state) {
-  return (Move)random(1, 4);
-}
-
-Result determineWinner(Move m1, Move m2) {
-  if (m1 == m2) {
-    return Tie;
-  }
-
-  if (m1 == Rock) {
-    if (m2 == Scissors) return P1;
-    if (m2 == Paper) return P2;
-  } else if (m1 == Paper) {
-    if (m2 == Rock) return P1;
-    if (m2 == Scissors) return P2;
-  } else {
-    if (m2 == Paper) return P1;
-    if (m2 == Rock) return P2;
-  }
-
-  return Tie;
 }
 
 void makeGameMove(AsyncWebServerRequest *request, State *state, Move move) {
@@ -110,19 +68,13 @@ void makeGameMove(AsyncWebServerRequest *request, State *state, Move move) {
   }
 }
 
-void resetState(State *state) {
-  state->mode = Idle;
-  state->player1Move = None;
-  state->player2Move = None;
-}
-
 void sendNotFound(AsyncWebServerRequest *request) {
   request->send(404, "text/plain", "Not found");
 }
 
 void sendHtmx(AsyncWebServerRequest *request) {
   // htmx is a bit too large to send in one chunk, so we need to split it and send in smaller chunks
-  AsyncWebServerResponse* response = request->beginChunkedResponse("text/javascript", [](uint8_t* buffer, size_t maxLen, size_t index) {
+  AsyncWebServerResponse* response = request->beginChunkedResponse("text/javascript", [](uint8_t* buffer, size_t maxLen, size_t index) -> size_t {
     int toCopy = min(htmxSize - index, maxLen);
     if (toCopy == 0) {
       return 0;
