@@ -63,29 +63,6 @@ Result determineWinner(Move m1, Move m2) {
   return Tie;
 }
 
-void makePlayer1Move(AsyncWebServerRequest *request, State *state, Move move) {
-  state->player1Move = move;
-
-  String hunk = String(makeMoveHunk);
-  hunk.replace("__PLAYER_NAME__", "Player 2");
-
-  sendHunk(request, &hunk);
-}
-
-void makePlayer2Move(AsyncWebServerRequest *request, State *state, Move move) {
-  state->player2Move = move;
-
-  const Result result = determineWinner(state->player1Move, state->player2Move);
-
-  String hunk = String(resultsHunk);
-  hunk.replace(
-    "__RESULT__",
-    result == Tie ? "It's a tie" : result == P1 ? "Player 1 wins!" : "Player 2 wins!"
-  );
-
-  sendHunk(request, &hunk);
-}
-
 void makeGameMove(AsyncWebServerRequest *request, State *state, Move move) {
   switch (state->mode) {
     case One: {
@@ -109,9 +86,24 @@ void makeGameMove(AsyncWebServerRequest *request, State *state, Move move) {
 
     case Two: {
       if (state->player1Move == None) {
-        makePlayer1Move(request, state, move);
+        state->player1Move = move;
+
+        String hunk = String(makeMoveHunk);
+        hunk.replace("__PLAYER_NAME__", "Player 2");
+
+        sendHunk(request, &hunk);
       } else {
-        makePlayer2Move(request, state, move);
+        state->player2Move = move;
+
+        const Result result = determineWinner(state->player1Move, state->player2Move);
+
+        String hunk = String(resultsHunk);
+        hunk.replace(
+          "__RESULT__",
+          result == Tie ? "It's a tie" : result == P1 ? "Player 1 wins!" : "Player 2 wins!"
+        );
+
+        sendHunk(request, &hunk);
       }
       break;
     }
