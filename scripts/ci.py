@@ -1,7 +1,7 @@
 import os
 import subprocess
 
-ci = os.getenv("CI") == True
+ci = os.getenv("CI").lower() == "true"
 
 def exec(command):
     return subprocess.run(command.split())
@@ -9,7 +9,7 @@ def exec(command):
 
 if ci:
     print("[ci]: building project\n")
-    exec("pio run")
+    exec("pio run -e main")
     exit()
 
 print("[local]: testing project\n")
