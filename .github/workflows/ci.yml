@@ -14,9 +14,13 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Upload artifacts
-        uses: actions/upload-artifact@v4
+      - name: Setup python
+        uses: actions/setup-python@v5
         with:
-          if-no-files-found: "error"
-          path: README.md
-          name: README.md
+          python-version: '3.13'
+
+      - name: Install pio
+        run: python -m pip install -U platformio
+
+      - name: Build
+        run: python ./scripts/ci.py
