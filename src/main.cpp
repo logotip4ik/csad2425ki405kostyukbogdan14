@@ -6,9 +6,7 @@
 
 #include "hunks.h"
 #include "game.h"
-
-const char* ssid = "ESP32";
-const char* password = "12341234";
+#include "env.h"
 
 IPAddress local_ip(192,168,1,1);
 IPAddress gateway(192,168,1,1);
@@ -88,11 +86,24 @@ void sendHtmx(AsyncWebServerRequest *request) {
   request->send(response);
 }
 
+void connectToWifi(const char *ssid, const char *password) {
+    // Set WiFi to station mode and disconnect from an AP if it was previously connected
+  WiFi.mode(WIFI_STA);
+  WiFi.disconnect();
+  delay(100);
+
+  WiFi.begin(ssid, password);
+
+  Serial.println("IP address: ");
+  Serial.println(WiFi.localIP());
+}
+
+const char* SSID = "MikroTik2G";
+
 void setup() {
   Serial.begin(115200);
 
-  WiFi.softAP(ssid, password);
-  WiFi.softAPConfig(local_ip, gateway, subnet);
+  connectToWifi(SSID, WIFI_PASSWORD);
 
   server.on("/", HTTP_GET, [&](AsyncWebServerRequest *request){
     resetState(&state);
