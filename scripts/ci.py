@@ -1,7 +1,11 @@
 import os
 import subprocess
 
-ci = os.getenv("CI").lower() == "true"
+ci = False
+try:
+    ci = os.getenv("CI").lower() == "true"
+except:
+    pass
 
 def exec(command):
     return subprocess.run(command.split())
