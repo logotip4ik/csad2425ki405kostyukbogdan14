@@ -87,15 +87,16 @@ void sendHtmx(AsyncWebServerRequest *request) {
 }
 
 void connectToWifi(const char *ssid, const char *password) {
-    // Set WiFi to station mode and disconnect from an AP if it was previously connected
-  WiFi.mode(WIFI_STA);
-  WiFi.disconnect();
-  delay(100);
+    WiFi.mode(WIFI_STA); //Optional
+    WiFi.begin(ssid, password);
 
-  WiFi.begin(ssid, password);
+    while(WiFi.status() != WL_CONNECTED){
+        Serial.print(".");
+        delay(100);
+    }
 
-  Serial.println("IP address: ");
-  Serial.println(WiFi.localIP());
+    Serial.print("\nLocal ESP32 IP: ");
+    Serial.println(WiFi.localIP());
 }
 
 const char* SSID = "MikroTik2G";
