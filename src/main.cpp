@@ -1,3 +1,9 @@
+/**
+ * @file main.cpp
+ *
+ * @brief Main hardware file which handles game state, wifi connections and responses.
+ */
+
 #include <Arduino.h>
 
 #include <WiFi.h>
@@ -8,22 +14,32 @@
 #include "game.h"
 #include "env.h"
 
-IPAddress local_ip(192,168,1,1);
-IPAddress gateway(192,168,1,1);
-IPAddress subnet(255,255,255,0);
-
+/** @brief Global web server variable */
 AsyncWebServer server(80);
+/** @brief Global game state */
 State state;
 
+/**
+  * @param request - web server request
+  * @param hunk - string pointer to send
+  * @brief Shortcut for sending string as web server response
+  */
 void sendHunk(AsyncWebServerRequest *request, String *hunk) {
   request->send(200, "text/html", hunk->begin());
 }
 
+/**
+  * @param request - web server request
+  * @param state - game state pointer
+  * @param move - user move
+  *
+  * @brief Makes desicion on what to send for user in different game modes
+  */
 void makeGameMove(AsyncWebServerRequest *request, State *state, Move move) {
   switch (state->mode) {
     case One: {
       state->player1Move = move;
-      state->player2Move = makeAIMove(state);
+      state->player2Move = makeAIMove();
 
       Result result = determineWinner(state->player1Move, state->player2Move);
 
@@ -66,10 +82,19 @@ void makeGameMove(AsyncWebServerRequest *request, State *state, Move move) {
   }
 }
 
+/**
+  * @param request - web server request
+  * @brief Shortcut function to handle 404 requests
+  */
 void sendNotFound(AsyncWebServerRequest *request) {
   request->send(404, "text/plain", "Not found");
 }
 
+/**
+  * @param request - web server request
+  *
+  * Used to send client side js library. Because the response won't fit in single chunk we use `beginChunkedResponse` to send HTMX
+  */
 void sendHtmx(AsyncWebServerRequest *request) {
   // htmx is a bit too large to send in one chunk, so we need to split it and send in smaller chunks
   AsyncWebServerResponse* response = request->beginChunkedResponse("text/javascript", [](uint8_t* buffer, size_t maxLen, size_t index) -> size_t {
@@ -86,6 +111,12 @@ void sendHtmx(AsyncWebServerRequest *request) {
   request->send(response);
 }
 
+/**
+  * @param ssid - name of the wifi to connect to
+  * @param password - password of the wifi
+  *
+  * Connects to wifi via provided ssid and password. Pauses execution till successful connection.
+  */
 void connectToWifi(const char *ssid, const char *password) {
     WiFi.mode(WIFI_STA); //Optional
     WiFi.begin(ssid, password);
@@ -101,6 +132,9 @@ void connectToWifi(const char *ssid, const char *password) {
 
 const char* SSID = "MikroTik2G";
 
+/**
+  * Setup which runs when esp32 boots up. This function handles connection to wifi and sending responses to user based on current game state.
+  */
 void setup() {
   Serial.begin(115200);
 
@@ -138,8 +172,8 @@ void setup() {
 
   server.on("/mode-zero", [&](AsyncWebServerRequest *request){
     state.mode = Zero;
-    state.player1Move = makeAIMove(&state);
-    state.player2Move = makeAIMove(&state);
+    state.player1Move = makeAIMove();
+    state.player2Move = makeAIMove();
 
     Result result = determineWinner(state.player1Move, state.player2Move);
 
@@ -175,4 +209,7 @@ void setup() {
   Serial.println("HTTP server started");
 }
 
+/**
+* @internal
+*/
 void loop() {}

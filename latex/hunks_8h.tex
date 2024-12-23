@@ -1,0 +1,160 @@
+\doxysection{src/hunks.h File Reference}
+\hypertarget{hunks_8h}{}\label{hunks_8h}\index{src/hunks.h@{src/hunks.h}}
+
+
+File used to store string templates to send as web server response.  
+
+
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{hunks_8h_a55940159a06cb127f74f1b9acfd779a4}\label{hunks_8h_a55940159a06cb127f74f1b9acfd779a4} 
+const char \texorpdfstring{$\ast$}{*} {\bfseries document}
+\begin{DoxyCompactList}\small\item\em String which used as basic template when sending initial response to user. \end{DoxyCompactList}\item 
+const char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{hunks_8h_a57966917737a417cc86bd226cd5747bb}{make\+Move\+Hunk}}
+\begin{DoxyCompactList}\small\item\em String chunk which is used to tell player 1 or 2 to make a move. \end{DoxyCompactList}\item 
+const char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{hunks_8h_ae1f000322829574edfd022ee8738fda8}{one\+AIHunk\+Results}}
+\begin{DoxyCompactList}\small\item\em String chunk which tells result in "{}against AI"{} game mode. \end{DoxyCompactList}\item 
+const char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{hunks_8h_aa5e6e179f49e8696c356eef984ef02b3}{two\+AIs\+Hunk\+Results}}
+\begin{DoxyCompactList}\small\item\em String chunk which tells result in "{}\+AI vs AI"{} game mode. \end{DoxyCompactList}\item 
+const char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{hunks_8h_a44ccb5fc06c043be0ea34a87e41d0691}{results\+Hunk}}
+\begin{DoxyCompactList}\small\item\em String chunk which tells result in "{}human vs human"{} game mode. \end{DoxyCompactList}\item 
+const char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{hunks_8h_a96093cd61b3c90c18dc8e4b4c2466737}{playbox\+Hunk}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+File used to store string templates to send as web server response. 
+
+
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{hunks_8h_a57966917737a417cc86bd226cd5747bb}\index{hunks.h@{hunks.h}!makeMoveHunk@{makeMoveHunk}}
+\index{makeMoveHunk@{makeMoveHunk}!hunks.h@{hunks.h}}
+\doxysubsubsection{\texorpdfstring{makeMoveHunk}{makeMoveHunk}}
+{\footnotesize\ttfamily \label{hunks_8h_a57966917737a417cc86bd226cd5747bb} 
+const char\texorpdfstring{$\ast$}{*} make\+Move\+Hunk}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=\ R\textcolor{stringliteral}{"{}(}}
+\DoxyCodeLine{\textcolor{stringliteral}{\ \ <h2>}}
+\DoxyCodeLine{\textcolor{stringliteral}{\ \ \ \ \_\_PLAYER\_NAME\_\_\ makes\ move:}}
+\DoxyCodeLine{\textcolor{stringliteral}{\ \ </h2>}}
+\DoxyCodeLine{\textcolor{stringliteral}{}}
+\DoxyCodeLine{\textcolor{stringliteral}{\ \ <ol>}}
+\DoxyCodeLine{\textcolor{stringliteral}{\ \ \ \ <li>}}
+\DoxyCodeLine{\textcolor{stringliteral}{\ \ \ \ \ \ <button\ hx-\/post="{}/rock"{}\ hx-\/target="{}\#playbox"{}\ hx-\/swap="{}innerHTML"{}>Rock</button>}}
+\DoxyCodeLine{\textcolor{stringliteral}{\ \ \ \ </li>}}
+\DoxyCodeLine{\textcolor{stringliteral}{}}
+\DoxyCodeLine{\textcolor{stringliteral}{\ \ \ \ <li>}}
+\DoxyCodeLine{\textcolor{stringliteral}{\ \ \ \ \ \ <button\ hx-\/post="{}/paper"{}\ hx-\/target="{}\#playbox"{}\ hx-\/swap="{}innerHTML"{}>Paper</button>}}
+\DoxyCodeLine{\textcolor{stringliteral}{\ \ \ \ </li>}}
+\DoxyCodeLine{\textcolor{stringliteral}{}}
+\DoxyCodeLine{\textcolor{stringliteral}{\ \ \ \ <li>}}
+\DoxyCodeLine{\textcolor{stringliteral}{\ \ \ \ \ \ <button\ hx-\/post="{}/scissors"{}\ hx-\/target="{}\#playbox"{}\ hx-\/swap="{}innerHTML"{}>Scissors</button>}}
+\DoxyCodeLine{\textcolor{stringliteral}{\ \ \ \ </li>}}
+\DoxyCodeLine{\textcolor{stringliteral}{\ \ </ol>}}
+\DoxyCodeLine{\textcolor{stringliteral}{)"{}}}
+
+\end{DoxyCode}
+
+
+String chunk which is used to tell player 1 or 2 to make a move. 
+
+\Hypertarget{hunks_8h_ae1f000322829574edfd022ee8738fda8}\index{hunks.h@{hunks.h}!oneAIHunkResults@{oneAIHunkResults}}
+\index{oneAIHunkResults@{oneAIHunkResults}!hunks.h@{hunks.h}}
+\doxysubsubsection{\texorpdfstring{oneAIHunkResults}{oneAIHunkResults}}
+{\footnotesize\ttfamily \label{hunks_8h_ae1f000322829574edfd022ee8738fda8} 
+const char\texorpdfstring{$\ast$}{*} one\+AIHunk\+Results}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=\ R\textcolor{stringliteral}{"{}(}}
+\DoxyCodeLine{\textcolor{stringliteral}{\ \ <h2>}}
+\DoxyCodeLine{\textcolor{stringliteral}{\ \ \ \ Player\ 1\ made\ move:\ \_\_PLAYER\_MOVE\_\_<br>}}
+\DoxyCodeLine{\textcolor{stringliteral}{\ \ \ \ AI\ made\ move:\ \_\_AI\_MOVE\_\_<br>}}
+\DoxyCodeLine{\textcolor{stringliteral}{}}
+\DoxyCodeLine{\textcolor{stringliteral}{\ \ \ \ \_\_RESULT\_\_}}
+\DoxyCodeLine{\textcolor{stringliteral}{\ \ </h2>}}
+\DoxyCodeLine{\textcolor{stringliteral}{}}
+\DoxyCodeLine{\textcolor{stringliteral}{\ \ <button\ hx-\/post="{}/reset"{}\ hx-\/target="{}\#playbox"{}\ hx-\/swap="{}innerHTML"{}>Play\ again\ ?</button>}}
+\DoxyCodeLine{\textcolor{stringliteral}{)"{}}}
+
+\end{DoxyCode}
+
+
+String chunk which tells result in "{}against AI"{} game mode. 
+
+\Hypertarget{hunks_8h_a96093cd61b3c90c18dc8e4b4c2466737}\index{hunks.h@{hunks.h}!playboxHunk@{playboxHunk}}
+\index{playboxHunk@{playboxHunk}!hunks.h@{hunks.h}}
+\doxysubsubsection{\texorpdfstring{playboxHunk}{playboxHunk}}
+{\footnotesize\ttfamily \label{hunks_8h_a96093cd61b3c90c18dc8e4b4c2466737} 
+const char\texorpdfstring{$\ast$}{*} playbox\+Hunk}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=\ R\textcolor{stringliteral}{"{}(}}
+\DoxyCodeLine{\textcolor{stringliteral}{\ \ <p>Select\ mode:</p>}}
+\DoxyCodeLine{\textcolor{stringliteral}{}}
+\DoxyCodeLine{\textcolor{stringliteral}{\ \ <ol>}}
+\DoxyCodeLine{\textcolor{stringliteral}{\ \ \ \ <li>}}
+\DoxyCodeLine{\textcolor{stringliteral}{\ \ \ \ \ \ <button\ hx-\/post="{}/mode-\/two"{}\ hx-\/target="{}\#playbox"{}\ hx-\/swap="{}innerHTML"{}>Two\ players</button>}}
+\DoxyCodeLine{\textcolor{stringliteral}{\ \ \ \ </li>}}
+\DoxyCodeLine{\textcolor{stringliteral}{}}
+\DoxyCodeLine{\textcolor{stringliteral}{\ \ \ \ <li>}}
+\DoxyCodeLine{\textcolor{stringliteral}{\ \ \ \ \ \ <button\ hx-\/post="{}/mode-\/one"{}\ hx-\/target="{}\#playbox"{}\ hx-\/swap="{}innerHTML"{}>Against\ AI</button>}}
+\DoxyCodeLine{\textcolor{stringliteral}{\ \ \ \ </li>}}
+\DoxyCodeLine{\textcolor{stringliteral}{}}
+\DoxyCodeLine{\textcolor{stringliteral}{\ \ \ \ <li>}}
+\DoxyCodeLine{\textcolor{stringliteral}{\ \ \ \ \ \ <button\ hx-\/post="{}/mode-\/zero"{}\ hx-\/target="{}\#playbox"{}\ hx-\/swap="{}innerHTML"{}>AI\ against\ AI</button>}}
+\DoxyCodeLine{\textcolor{stringliteral}{\ \ \ \ </li>}}
+\DoxyCodeLine{\textcolor{stringliteral}{\ \ </ol>}}
+\DoxyCodeLine{\textcolor{stringliteral}{)"{}}}
+
+\end{DoxyCode}
+\Hypertarget{hunks_8h_a44ccb5fc06c043be0ea34a87e41d0691}\index{hunks.h@{hunks.h}!resultsHunk@{resultsHunk}}
+\index{resultsHunk@{resultsHunk}!hunks.h@{hunks.h}}
+\doxysubsubsection{\texorpdfstring{resultsHunk}{resultsHunk}}
+{\footnotesize\ttfamily \label{hunks_8h_a44ccb5fc06c043be0ea34a87e41d0691} 
+const char\texorpdfstring{$\ast$}{*} results\+Hunk}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=\ R\textcolor{stringliteral}{"{}(}}
+\DoxyCodeLine{\textcolor{stringliteral}{\ \ <h2>}}
+\DoxyCodeLine{\textcolor{stringliteral}{\ \ \ \ \_\_RESULT\_\_}}
+\DoxyCodeLine{\textcolor{stringliteral}{\ \ </h2>}}
+\DoxyCodeLine{\textcolor{stringliteral}{}}
+\DoxyCodeLine{\textcolor{stringliteral}{\ \ <button\ hx-\/post="{}/reset"{}\ hx-\/target="{}\#playbox"{}\ hx-\/swap="{}innerHTML"{}>Play\ again\ ?</button>}}
+\DoxyCodeLine{\textcolor{stringliteral}{)"{}}}
+
+\end{DoxyCode}
+
+
+String chunk which tells result in "{}human vs human"{} game mode. 
+
+\Hypertarget{hunks_8h_aa5e6e179f49e8696c356eef984ef02b3}\index{hunks.h@{hunks.h}!twoAIsHunkResults@{twoAIsHunkResults}}
+\index{twoAIsHunkResults@{twoAIsHunkResults}!hunks.h@{hunks.h}}
+\doxysubsubsection{\texorpdfstring{twoAIsHunkResults}{twoAIsHunkResults}}
+{\footnotesize\ttfamily \label{hunks_8h_aa5e6e179f49e8696c356eef984ef02b3} 
+const char\texorpdfstring{$\ast$}{*} two\+AIs\+Hunk\+Results}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=\ R\textcolor{stringliteral}{"{}(}}
+\DoxyCodeLine{\textcolor{stringliteral}{\ \ <h2>}}
+\DoxyCodeLine{\textcolor{stringliteral}{\ \ \ \ AI\ 1\ made\ move:\ \_\_AI\_1\_MOVE\_\_<br>}}
+\DoxyCodeLine{\textcolor{stringliteral}{\ \ \ \ AI\ 2\ made\ move:\ \_\_AI\_2\_MOVE\_\_<br>}}
+\DoxyCodeLine{\textcolor{stringliteral}{}}
+\DoxyCodeLine{\textcolor{stringliteral}{\ \ \ \ \_\_RESULT\_\_}}
+\DoxyCodeLine{\textcolor{stringliteral}{\ \ </h2>}}
+\DoxyCodeLine{\textcolor{stringliteral}{}}
+\DoxyCodeLine{\textcolor{stringliteral}{\ \ <button\ hx-\/post="{}/reset"{}\ hx-\/target="{}\#playbox"{}\ hx-\/swap="{}innerHTML"{}>Play\ again\ ?</button>}}
+\DoxyCodeLine{\textcolor{stringliteral}{)"{}}}
+
+\end{DoxyCode}
+
+
+String chunk which tells result in "{}\+AI vs AI"{} game mode. 
+

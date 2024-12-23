@@ -1,0 +1,134 @@
+\doxysection{src/main.cpp File Reference}
+\hypertarget{main_8cpp}{}\label{main_8cpp}\index{src/main.cpp@{src/main.cpp}}
+
+
+Main hardware file which handles game state, wifi connections and responses.  
+
+
+{\ttfamily \#include $<$Arduino.\+h$>$}\newline
+{\ttfamily \#include $<$Wi\+Fi.\+h$>$}\newline
+{\ttfamily \#include $<$ESPAsync\+Web\+Server.\+h$>$}\newline
+{\ttfamily \#include $<$htmx.\+h$>$}\newline
+{\ttfamily \#include "{}hunks.\+h"{}}\newline
+{\ttfamily \#include "{}game.\+h"{}}\newline
+{\ttfamily \#include "{}env.\+h"{}}\newline
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{main_8cpp_a85f30d66aa1231313c8553fd485b22b1}\label{main_8cpp_a85f30d66aa1231313c8553fd485b22b1} 
+Async\+Web\+Server {\bfseries server} (80)
+\begin{DoxyCompactList}\small\item\em Global web server variable. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{main_8cpp_ad2c69d2d5df3adc0bd8bb4fef647a402}{send\+Hunk}} (Async\+Web\+Server\+Request \texorpdfstring{$\ast$}{*}request, String \texorpdfstring{$\ast$}{*}hunk)
+\begin{DoxyCompactList}\small\item\em Shortcut for sending string as web server response. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{main_8cpp_a847606a48a6beef3c7303154f73a8f7d}{make\+Game\+Move}} (Async\+Web\+Server\+Request \texorpdfstring{$\ast$}{*}request, \mbox{\hyperlink{struct_state}{State}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{main_8cpp_a876b486d3a5241a126bd5751c5f70f79}{state}}, \mbox{\hyperlink{game_8h_a19b869a01ca1a58f4164b4f75c2df388}{Move}} move)
+\begin{DoxyCompactList}\small\item\em Makes desicion on what to send for user in different game modes. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{main_8cpp_a5f3167f7bf9bd2bb7f07a30d42344ebb}{send\+Not\+Found}} (Async\+Web\+Server\+Request \texorpdfstring{$\ast$}{*}request)
+\begin{DoxyCompactList}\small\item\em Shortcut function to handle 404 requests. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{main_8cpp_a25f62cea9b36dc3a573537bc6e101520}{send\+Htmx}} (Async\+Web\+Server\+Request \texorpdfstring{$\ast$}{*}request)
+\item 
+void \mbox{\hyperlink{main_8cpp_a5ef1963ab50e7cad4080419b34c527b1}{connect\+To\+Wifi}} (const char \texorpdfstring{$\ast$}{*}ssid, const char \texorpdfstring{$\ast$}{*}password)
+\item 
+void \mbox{\hyperlink{main_8cpp_a4fc01d736fe50cf5b977f755b675f11d}{setup}} ()
+\item 
+\Hypertarget{main_8cpp_afe461d27b9c48d5921c00d521181f12f}\label{main_8cpp_afe461d27b9c48d5921c00d521181f12f} 
+void {\bfseries loop} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{main_8cpp_a876b486d3a5241a126bd5751c5f70f79}\label{main_8cpp_a876b486d3a5241a126bd5751c5f70f79} 
+\mbox{\hyperlink{struct_state}{State}} {\bfseries state}
+\begin{DoxyCompactList}\small\item\em Global game state. \end{DoxyCompactList}\item 
+\Hypertarget{main_8cpp_a0bd682e71bad5172281d3ac1431d5736}\label{main_8cpp_a0bd682e71bad5172281d3ac1431d5736} 
+const char \texorpdfstring{$\ast$}{*} {\bfseries SSID} = "{}Mikro\+Tik2\+G"{}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Main hardware file which handles game state, wifi connections and responses. 
+
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{main_8cpp_a5ef1963ab50e7cad4080419b34c527b1}\index{main.cpp@{main.cpp}!connectToWifi@{connectToWifi}}
+\index{connectToWifi@{connectToWifi}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{connectToWifi()}{connectToWifi()}}
+{\footnotesize\ttfamily \label{main_8cpp_a5ef1963ab50e7cad4080419b34c527b1} 
+void connect\+To\+Wifi (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{ssid}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{password}{}\end{DoxyParamCaption})}
+
+
+\begin{DoxyParams}{Parameters}
+{\em ssid} & -\/ name of the wifi to connect to \\
+\hline
+{\em password} & -\/ password of the wifi\\
+\hline
+\end{DoxyParams}
+Connects to wifi via provided ssid and password. Pauses execution till successful connection. \Hypertarget{main_8cpp_a847606a48a6beef3c7303154f73a8f7d}\index{main.cpp@{main.cpp}!makeGameMove@{makeGameMove}}
+\index{makeGameMove@{makeGameMove}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{makeGameMove()}{makeGameMove()}}
+{\footnotesize\ttfamily \label{main_8cpp_a847606a48a6beef3c7303154f73a8f7d} 
+void make\+Game\+Move (\begin{DoxyParamCaption}\item[{Async\+Web\+Server\+Request \texorpdfstring{$\ast$}{*}}]{request}{, }\item[{\mbox{\hyperlink{struct_state}{State}} \texorpdfstring{$\ast$}{*}}]{state}{, }\item[{\mbox{\hyperlink{game_8h_a19b869a01ca1a58f4164b4f75c2df388}{Move}}}]{move}{}\end{DoxyParamCaption})}
+
+
+
+Makes desicion on what to send for user in different game modes. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em request} & -\/ web server request \\
+\hline
+{\em state} & -\/ game state pointer \\
+\hline
+{\em move} & -\/ user move \\
+\hline
+\end{DoxyParams}
+\Hypertarget{main_8cpp_a25f62cea9b36dc3a573537bc6e101520}\index{main.cpp@{main.cpp}!sendHtmx@{sendHtmx}}
+\index{sendHtmx@{sendHtmx}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{sendHtmx()}{sendHtmx()}}
+{\footnotesize\ttfamily \label{main_8cpp_a25f62cea9b36dc3a573537bc6e101520} 
+void send\+Htmx (\begin{DoxyParamCaption}\item[{Async\+Web\+Server\+Request \texorpdfstring{$\ast$}{*}}]{request}{}\end{DoxyParamCaption})}
+
+
+\begin{DoxyParams}{Parameters}
+{\em request} & -\/ web server request\\
+\hline
+\end{DoxyParams}
+Used to send client side js library. Because the response won\textquotesingle{}t fit in single chunk we use {\ttfamily begin\+Chunked\+Response} to send HTMX \Hypertarget{main_8cpp_ad2c69d2d5df3adc0bd8bb4fef647a402}\index{main.cpp@{main.cpp}!sendHunk@{sendHunk}}
+\index{sendHunk@{sendHunk}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{sendHunk()}{sendHunk()}}
+{\footnotesize\ttfamily \label{main_8cpp_ad2c69d2d5df3adc0bd8bb4fef647a402} 
+void send\+Hunk (\begin{DoxyParamCaption}\item[{Async\+Web\+Server\+Request \texorpdfstring{$\ast$}{*}}]{request}{, }\item[{String \texorpdfstring{$\ast$}{*}}]{hunk}{}\end{DoxyParamCaption})}
+
+
+
+Shortcut for sending string as web server response. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em request} & -\/ web server request \\
+\hline
+{\em hunk} & -\/ string pointer to send \\
+\hline
+\end{DoxyParams}
+\Hypertarget{main_8cpp_a5f3167f7bf9bd2bb7f07a30d42344ebb}\index{main.cpp@{main.cpp}!sendNotFound@{sendNotFound}}
+\index{sendNotFound@{sendNotFound}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{sendNotFound()}{sendNotFound()}}
+{\footnotesize\ttfamily \label{main_8cpp_a5f3167f7bf9bd2bb7f07a30d42344ebb} 
+void send\+Not\+Found (\begin{DoxyParamCaption}\item[{Async\+Web\+Server\+Request \texorpdfstring{$\ast$}{*}}]{request}{}\end{DoxyParamCaption})}
+
+
+
+Shortcut function to handle 404 requests. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em request} & -\/ web server request \\
+\hline
+\end{DoxyParams}
+\Hypertarget{main_8cpp_a4fc01d736fe50cf5b977f755b675f11d}\index{main.cpp@{main.cpp}!setup@{setup}}
+\index{setup@{setup}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{setup()}{setup()}}
+{\footnotesize\ttfamily \label{main_8cpp_a4fc01d736fe50cf5b977f755b675f11d} 
+void setup (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+Setup which runs when esp32 boots up. This function handles connection to wifi and sending responses to user based on current game state. 
