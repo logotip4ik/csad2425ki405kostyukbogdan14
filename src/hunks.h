@@ -1,3 +1,12 @@
+/**
+ * @file hunks.h
+ *
+ * @brief File used to store string templates to send as web server response
+ */
+
+/**
+  * @brief String which used as basic template when sending initial response to user
+  */
 const char* document = R"(
 <!DOCTYPE html>
 <html lang="en">
@@ -50,6 +59,9 @@ const char* document = R"(
 </html>
 )";
 
+/**
+  * @brief String chunk which is used to tell player 1 or 2 to make a move
+  */
 const char* makeMoveHunk = R"(
   <h2>
     __PLAYER_NAME__ makes move:
@@ -70,6 +82,9 @@ const char* makeMoveHunk = R"(
   </ol>
 )";
 
+/**
+  * @brief String chunk which tells result in "against AI" game mode
+  */
 const char* oneAIHunkResults = R"(
   <h2>
     Player 1 made move: __PLAYER_MOVE__<br>
@@ -81,6 +96,9 @@ const char* oneAIHunkResults = R"(
   <button hx-post="/reset" hx-target="#playbox" hx-swap="innerHTML">Play again ?</button>
 )";
 
+/**
+  * @brief String chunk which tells result in "AI vs AI" game mode
+  */
 const char* twoAIsHunkResults = R"(
   <h2>
     AI 1 made move: __AI_1_MOVE__<br>
@@ -92,6 +110,9 @@ const char* twoAIsHunkResults = R"(
   <button hx-post="/reset" hx-target="#playbox" hx-swap="innerHTML">Play again ?</button>
 )";
 
+/**
+  * @brief String chunk which tells result in "human vs human" game mode
+  */
 const char* resultsHunk = R"(
   <h2>
     __RESULT__
