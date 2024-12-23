@@ -24,3 +24,12 @@ jobs:
 
       - name: Build
         run: python ./scripts/ci.py
+
+      - name: Generate Docs
+        uses: mattnotmitt/doxygen-action@v1
+
+      - name: Upload html
+        uses: actions/upload-artifact@v4
+        with:
+          path: ./html
+
